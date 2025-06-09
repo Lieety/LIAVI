@@ -1,26 +1,26 @@
 ﻿import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
       navigate("/");
     } catch (error) {
-      alert("Error d'inici de sessió: " + error.message);
+      alert("Error de registre: " + error.message);
     }
   };
 
   return (
-    <form onSubmit={handleLogin} className="p-4 max-w-sm mx-auto space-y-3">
-      <h2 className="text-xl font-semibold">Inicia sessió</h2>
+    <form onSubmit={handleRegister} className="p-4 max-w-sm mx-auto space-y-3">
+      <h2 className="text-xl font-semibold">Crea un compte</h2>
       <input
         className="border p-2 w-full"
         placeholder="Correu electrònic"
@@ -32,8 +32,8 @@ export default function Login() {
         placeholder="Contrasenya"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button className="bg-blue-600 text-white p-2 rounded w-full">
-        Entrar
+      <button className="bg-green-600 text-white p-2 rounded w-full">
+        Registrar-se
       </button>
     </form>
   );

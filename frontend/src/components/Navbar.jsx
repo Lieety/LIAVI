@@ -1,65 +1,40 @@
-﻿// Estructura inicial del projecte Liavi (React + TailwindCSS)
-// Inclou: Navbar, Home i rutes bàsiques (Flashcards, Resums, Esquemes)
+﻿import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-} from 'react-router-dom';
-//import { useState } from 'react';
+export default function Navbar() {
+  const { user } = useAuth();
 
-const Navbar = () => {
+  const handleLogout = async () => {
+    await signOut(auth);
+  };
+
   return (
-    <nav className="flex justify-between items-center px-6 py-4 bg-white shadow-md">
-      <div className="text-2xl font-bold text-blue-600">
-        <Link to="/">Liavi</Link>
-      </div>
-      <div className="flex space-x-6 text-orange-600 font-medium">
+    <nav className="flex justify-between items-center bg-gray-800 text-white px-6 py-3">
+      <Link to="/" className="text-xl font-bold">Liavi</Link>
+
+      <div className="space-x-4">
         <Link to="/flashcards">Flashcards</Link>
         <Link to="/resums">Resums</Link>
         <Link to="/esquemes">Esquemes</Link>
       </div>
+
       <div>
-        <Link to="/login">
-          <Button>Iniciar sessió / Registre</Button>
-        </Link>
+        {user ? (
+          <>
+            <span className="mr-2">{user.email}</span>
+            <button onClick={handleLogout} className="text-sm underline">
+              Tancar sessió
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="mr-2">Inicia sessió</Link>
+            <Link to="/register">Registra't</Link>
+          </>
+        )}
       </div>
     </nav>
   );
-};
-
-const Home = () => {
-  return (
-    <div className="bg-yellow-50 min-h-screen px-6 py-12 text-slate-800">
-      <h1 className="text-5xl font-bold mb-6 text-slate-900">Inici</h1>
-      <p className="text-xl max-w-xl">
-        Benvingut a <span className="text-purple-600 font-semibold">Liavi</span>, la teva eina d’estudi amb IA.
-        <br />Crea flashcards, apunts i resums automàticament gràcies a la potència de GPT-4 Turbo.
-      </p>
-      <div className="mt-12">
-        {/* Aquí podries posar una il·lustració més endavant */}
-      </div>
-    </div>
-  );
-};
-
-const Flashcards = () => <div className="p-6">Flashcards (en construcció)</div>;
-const Resums = () => <div className="p-6">Resums (en construcció)</div>;
-const Esquemes = () => <div className="p-6">Esquemes (en construcció)</div>;
-
-function App() {
-  return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/flashcards" element={<Flashcards />} />
-        <Route path="/resums" element={<Resums />} />
-        <Route path="/esquemes" element={<Esquemes />} />
-      </Routes>
-    </Router>
-  );
 }
-
-export default App;
