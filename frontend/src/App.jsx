@@ -1,27 +1,25 @@
-﻿import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Flashcards from "./pages/Flashcards";
-import Resums from "./pages/Resums";
-import Esquemes from "./pages/Esquemes";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Home from "./pages/Home";
-import { AuthProvider } from "./context/AuthContext";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Perfil from './pages/Perfil';
 
-export default function App() {
+function App() {
   return (
     <AuthProvider>
-      <Router>
+      <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/flashcards" element={<Flashcards />} />
-          <Route path="/resums" element={<Resums />} />
-          <Route path="/esquemes" element={<Esquemes />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/perfil" element={<Perfil />} />
         </Routes>
-      </Router>
+      </BrowserRouter>
     </AuthProvider>
   );
 }
+
+export default App;

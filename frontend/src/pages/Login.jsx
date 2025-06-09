@@ -1,40 +1,34 @@
-﻿import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { app } from '../firebase';
 
-export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Login = () => {
+  const auth = getAuth(app);
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/");
-    } catch (error) {
-      alert("Error d'inici de sessió: " + error.message);
+      navigate('/perfil');
+    } catch (err) {
+      alert(err.message);
     }
   };
 
   return (
-    <form onSubmit={handleLogin} className="p-4 max-w-sm mx-auto space-y-3">
-      <h2 className="text-xl font-semibold">Inicia sessió</h2>
-      <input
-        className="border p-2 w-full"
-        placeholder="Correu electrònic"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        className="border p-2 w-full"
-        placeholder="Contrasenya"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button className="bg-blue-600 text-white p-2 rounded w-full">
-        Entrar
-      </button>
-    </form>
+    <div className="flex flex-col items-center p-8">
+      <h1 className="text-3xl font-bold mb-4">Inicia sessi�</h1>
+      <form onSubmit={handleLogin} className="flex flex-col gap-4 w-full max-w-sm">
+        <input className="p-2 border rounded" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+        <input className="p-2 border rounded" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contrasenya" />
+        <button className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600" type="submit">Entrar</button>
+      </form>
+    </div>
   );
-}
+};
+
+export default Login;

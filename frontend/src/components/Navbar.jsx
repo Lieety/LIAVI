@@ -1,37 +1,22 @@
-﻿import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
-  const { user } = useAuth();
-
-  const handleLogout = async () => {
-    await signOut(auth);
-  };
+  const { user, logout } = useAuth();
 
   return (
-    <nav className="flex justify-between items-center bg-gray-800 text-white px-6 py-3">
-      <Link to="/" className="text-xl font-bold">Liavi</Link>
-
-      <div className="space-x-4">
-        <Link to="/flashcards">Flashcards</Link>
-        <Link to="/resums">Resums</Link>
-        <Link to="/esquemes">Esquemes</Link>
-      </div>
-
-      <div>
+    <nav className="flex justify-between items-center px-6 py-4 bg-neutral-900 text-white shadow-md">
+      <Link to="/" className="text-2xl font-bold tracking-wide">LIAVI</Link>
+      <div className="flex gap-4 items-center">
         {user ? (
           <>
-            <span className="mr-2">{user.email}</span>
-            <button onClick={handleLogout} className="text-sm underline">
-              Tancar sessió
-            </button>
+            <Link to="/perfil" className="hover:text-blue-400">{user.email}</Link>
+            <button onClick={logout} className="bg-red-600 px-3 py-1 rounded hover:bg-red-700">Sortir</button>
           </>
         ) : (
           <>
-            <Link to="/login" className="mr-2">Inicia sessió</Link>
-            <Link to="/register">Registra't</Link>
+            <Link to="/login" className="hover:text-blue-400">Inicia sessi�</Link>
+            <Link to="/register" className="hover:text-blue-400">Registra't</Link>
           </>
         )}
       </div>
