@@ -1,19 +1,25 @@
-import app from './app.js';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-dotenv.config();
+function App() {
+  const [backendMessage, setBackendMessage] = useState('Carregant...');
 
-const PORT = process.env.PORT || 5000;
+  useEffect(() => {
+    axios.get('/api/test')
+      .then(response => {
+        setBackendMessage(response.data.message);
+      })
+      .catch(() => {
+        setBackendMessage('No s’ha pogut connectar amb el backend.');
+      });
+  }, []);
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => {
-  console.log('✅ MongoDB connected');
-  app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-})
-.catch(err => {
-  console.error('❌ MongoDB connection error:', err);
-});
+  return (
+    <div style={{ padding: 20, fontFamily: 'Arial', maxWidth: 600, margin: 'auto' }}>
+      <h1>Benvingut a LIAVI - Flashcards automàtiques</h1>
+      <p>Resposta del backend: {backendMessage}</p>
+    </div>
+  );
+}
+
+export default App;
