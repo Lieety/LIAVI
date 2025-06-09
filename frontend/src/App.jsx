@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Perfil from './pages/Perfil';
 
-function App() {s
+function App() {
   return (
     <>
       <Navbar />
