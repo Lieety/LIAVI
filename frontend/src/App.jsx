@@ -18,9 +18,8 @@ function App() {
         <Route path="/flashcards" element={<Flashcards />} />
         <Route path="/resums" element={<Resums />} />
         <Route path="/esquemes" element={<Esquemes />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/perfil" element={<Perfil />} />
-      </Routes>
+        <Route path="/login" element={<Login />} /> {/* 👈 afegida */}
+        </Routes>
     </Router>
   );
 }
