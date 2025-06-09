@@ -1,9 +1,6 @@
 import express from 'express';
-import { generateFlashcard } from '../controllers/flashcardController.js';
-import authMiddleware from '../middleware/authMiddleware.js';
-
 const router = express.Router();
-
-router.post('/generate', authMiddleware, generateFlashcard);
-
+router.post('/generate', (req, res) => {
+    res.json({ flashcard: "Flashcard generada (fake data)" });
+});
 export default router;
