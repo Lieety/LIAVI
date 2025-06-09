@@ -1,16 +1,19 @@
-import dotenv from 'dotenv';
-dotenv.config();
-import express from 'express';
+import app from './app.js';
 import mongoose from 'mongoose';
-import authRoutes from './routes/authRoutes.js';
-import flashcardRoutes from './routes/flashcardRoutes.js';
+import dotenv from 'dotenv';
 
-const app = express();
-app.use(express.json());
-app.use('/api/auth', authRoutes);
-app.use('/api/flashcards', flashcardRoutes);
-app.get('/', (req, res) => res.send('🔥 Laevi backend'));
+dotenv.config();
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => app.listen(process.env.PORT || 5000, () => console.log("Servidor actiu")))
-  .catch(err => console.error(err));
+const PORT = process.env.PORT || 5000;
+
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => {
+  console.log('✅ MongoDB connected');
+  app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+})
+.catch(err => {
+  console.error('❌ MongoDB connection error:', err);
+});
