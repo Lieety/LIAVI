@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import "./index.css"
+import Layout from "./components/Layout"
 
 const App = () => {
-  return <h1>Benvingut a Laevi Beta!</h1>;
+  return (
+    <Layout />
+);
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
