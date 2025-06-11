@@ -1,34 +1,48 @@
 import React, { useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
-import { app } from '../firebase';
 
-const Login = () => {
-  const auth = getAuth(app);
-  const navigate = useNavigate();
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/perfil');
-    } catch (err) {
-      alert(err.message);
-    }
+    console.log("Enviant login...", { email, password });
+    // aquí cridaries a la funció login() del teu context
   };
 
   return (
-    <div className="flex flex-col items-center p-8">
-      <h1 className="text-3xl font-bold mb-4">Inicia sessi�</h1>
-      <form onSubmit={handleLogin} className="flex flex-col gap-4 w-full max-w-sm">
-        <input className="p-2 border rounded" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-        <input className="p-2 border rounded" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contrasenya" />
-        <button className="bg-blue-500 text-white py-2 rounded hover:bg-blue-600" type="submit">Entrar</button>
-      </form>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-gray-900 to-black flex items-center justify-center p-6">
+      <div className="bg-white rounded-2xl shadow-xl p-10 w-full max-w-md">
+        <h1 className="text-3xl font-bold text-indigo-700 mb-6">Inicia sessió</h1>
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          <input
+            type="email"
+            placeholder="Correu electrònic"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+          <input
+            type="password"
+            placeholder="Contrasenya"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+          <button
+            type="submit"
+            className="bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-700 transition"
+          >
+            Entrar
+          </button>
+        </form>
+        <p className="text-sm text-center text-gray-600 mt-4">
+          Encara no tens compte?{' '}
+          <a href="/register" className="text-indigo-600 hover:underline">
+            Registra't
+          </a>
+        </p>
+      </div>
     </div>
   );
-};
-
-export default Login;
+}
