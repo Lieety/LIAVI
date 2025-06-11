@@ -3,7 +3,13 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
+  },
   server: {
-    historyApiFallback: true // 👈 Per evitar 404s en rutes internes
+    port: 5173,
+    open: true
   }
 })
