@@ -1,34 +1,13 @@
-import React, { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
-import { app } from '../firebase';
-
-const Register = () => {
-  const auth = getAuth(app);
-  const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      navigate('/perfil');
-    } catch (err) {
-      alert(err.message);
-    }
-  };
-
+export default function Register() {
   return (
-    <div className="flex flex-col items-center p-8">
-      <h1 className="text-3xl font-bold mb-4">Crea un compte</h1>
-      <form onSubmit={handleRegister} className="flex flex-col gap-4 w-full max-w-sm">
-        <input className="p-2 border rounded" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-        <input className="p-2 border rounded" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contrasenya" />
-        <button className="bg-green-500 text-white py-2 rounded hover:bg-green-600" type="submit">Registrar-se</button>
+    <div className="max-w-md mx-auto">
+      <h2 className="text-2xl font-bold text-center mb-4">Crea un compte</h2>
+      <form className="bg-white shadow rounded p-6 space-y-4">
+        <input type="text" placeholder="Nom complet" className="w-full p-2 border rounded" />
+        <input type="email" placeholder="Correu electrònic" className="w-full p-2 border rounded" />
+        <input type="password" placeholder="Contrasenya" className="w-full p-2 border rounded" />
+        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition">Registrar</button>
       </form>
     </div>
   );
-};
-
-export default Register;
+}
