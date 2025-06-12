@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap");
 @import "tailwindcss";
 
-.schibsted-grotesk-<uniquifier > {
-  font-family: "Schibsted Grotesk", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
+@theme {
+  --color-primary: #e7d6bc;
+  --color-secondary: #db9b48;
+  --color-accent: #a81021;
+  --color-accent-2: #cb3345;
+  --color-cards: #b89071;
 }
