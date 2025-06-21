@@ -1,6 +1,11 @@
 import Link from "next/link"
+import type { Metadata } from 'next'
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: 'Resums',
+}
+
+export default function Resums() {
   return (
     <div>
       <div className="w-fit h-fit flex flex-row gap-6 justify-center items-center text-white bg-cards p-12 absolute m-auto left-0 right-0 bottom-0 top-0 rounded-3xl">
