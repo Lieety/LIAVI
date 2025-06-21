@@ -31,12 +31,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className='flex flex-col bg-primary text-gray-900'>
+        <div className='flex flex-col bg-primary text-gray-900 min-h-screen'>
       <Navbar></Navbar>
-      <main className='flex-1'>
         {children}
-      </main>
-      <footer className='bg-white shadow-inner px-6 py-4 text-center text-sm text-gray-500'>
+      <footer className='bg-white shadow-inner px-6 py-4 text-center text-sm text-gray-500 absolute bottom-0 w-screen'>
         © 2025 Liavi. Fet amb 💙 per estudiants.
       </footer>
     </div>
