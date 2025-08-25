@@ -3,6 +3,22 @@ import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
+const { username, email, password } = await request.json();
+
+if (!username || !email || !password) {
+  return new Response
+  (JSON.stringify({ error: 'Falten camps' }), { status: 400 });
+}
+
+await prisma.user.create({
+  data: {
+    username,
+    email,
+    password: hashedPassword,
+  },
+});
+
+
 export async function POST(request) {
   const { email, password } = await request.json();
 

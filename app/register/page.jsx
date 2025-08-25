@@ -1,6 +1,5 @@
-// Register.jsx
 "use client";
-s
+a
 import React, { useState } from 'react';
 
 export default function Register() {
@@ -18,10 +17,38 @@ export default function Register() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí pots afegir validació o enviar a una API
-    console.log('Register Data:', formData);
+
+    if (formData.password !== formData.confirmPassword) {
+      alert('Les contrasenyes no coincideixen');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.error || 'Error desconegut al registrar');
+      } else {
+        alert('Usuari registrat correctament!');
+        // pots redirigir a /login si vols
+        // router.push('/login')
+      }
+    } catch (err) {
+      console.error('Error:', err);
+      alert('Error del servidor');
+    }
   };
 
   return (
@@ -77,32 +104,3 @@ export default function Register() {
     </div>
   );
 }
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  if (formData.password !== formData.confirmPassword) {
-    alert("Les contrasenyes no coincideixen!");
-    return;
-  }
-
-  const res = await fetch('/api/register', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      email: formData.email,
-      password: formData.password,
-    }),
-  });
-
-  const data = await res.json();
-  console.log(data);
-
-  if (res.ok) {
-    alert(data.message);
-    // window.location.href = "/login"; // Exemple: redirigeix al login
-  } else {
-    alert(data.error);
-  }
-};
-
-
