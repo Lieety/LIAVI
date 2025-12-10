@@ -1,13 +1,27 @@
 // /prisma/schema.prisma
 
+// 1. BLOC GENERATOR (Defineix com es crea el client de Prisma)
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 2. BLOC DATASOURCE (Defineix la connexió a la base de dades)
+datasource db {
+  provider = "postgresql" // O "mysql", "sqlite", etc.
+  url      = env("DATABASE_URL")
+}
+
+// 3. ELS TEUS MODELS (User, Role, etc., vénen a continuació)
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String   // Aquest camp guardarà el hash de la contrasenya
-  name      String?
-  role      Role     @default(FREE) // Per a futures subscripcions de pagament
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id               Int      @id @default(autoincrement())
+  email            String   @unique
+  password         String
+  role             Role     @default(FREE)
+  stripeCustomerId String?  @unique 
+  subscriptionId   String?  @unique 
+  name             String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
 enum Role {
