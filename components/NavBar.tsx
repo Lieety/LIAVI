@@ -7,7 +7,7 @@ export default function Navbar() {
         <div>
           <Link href="/" className="text-xl font-bold text-black">LIAVI</Link>
         </div>
-        <div className='flex flex-row justify-between w-1/3 text-shadow-amber-500'>
+        <div className='flex flex-row justify-between w-1/2 text-shadow-amber-500'>
           <Link href="/flashcards">Flashcards</Link>
           <Link href="/resums">Resums</Link>
           <Link href="/esquemes">Esquemes</Link>

@@ -8,13 +8,13 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-primary: #e7d6bc;
-  --color-secondary: #db9b48;
-  --color-accent: #a81021;
-  --color-accent-2: #cb3345;
-  --color-cards: #b89071;
+  --font-sans: var(--font-geist-sans),;
+  --font-mono: var(--font-geist-mono); 
+  --color-primary: #fdf7ff; /* fondo */
+  --color-secondary: #00393E; /* ni idea */
+  --color-accent: #e86c5f; /* botó inici sessió */
+  --color-accent-2: #171717; /* text inici sessió navbar */
+  --color-cards: #fffae5; /* capsa text i personatge */
 }
 
 @media (prefers-color-scheme: dark) {

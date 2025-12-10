@@ -1,15 +1,17 @@
-datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
-}
+// /prisma/schema.prisma
 
 model User {
-  id       Int    @id @default(autoincrement())
-  username String
-  email    String @unique
-  password String
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String   // Aquest camp guardarà el hash de la contrasenya
+  name      String?
+  role      Role     @default(FREE) // Per a futures subscripcions de pagament
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  FREE
+  PREMIUM
+  ADMIN
 }
