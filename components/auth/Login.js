@@ -1,30 +1,20 @@
-// Exemple de funció de Login dins del component React
-const handleLogin = async (email, password) => {
-  try {
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
 
-    if (!response.ok) {
-      // Gestió d'errors (credencials invàlides)
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Login failed');
-    }
+import { useAuth } from '../../../context/AuthContext';
+const { login } = useAuth(); 
 
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  
+
+  const response = await fetch('/api/auth/login', { /* ... */ });
+  
+  if (response.ok) {
     const data = await response.json();
-    // 1. Desa el token al localStorage
-    localStorage.setItem('authToken', data.token);
-
-    // 2. Actualitza l'estat global de l'usuari (utilitzant el Context)
+    
+    // CRIDA CLAU: Utilitzem la funció del Context
     login(data.token, data.user); 
 
-    // 3. Redirigeix l'usuari (p. ex., a la pàgina principal)
-    router.push('/');
-
-  } catch (error) {
-    console.error(error.message);
-    // Mostrar missatge d'error a l'usuari
+  } else {
+    // Gestió d'errors
   }
 };

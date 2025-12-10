@@ -1,4 +1,20 @@
-import Link from "next/link"
+// /components/NavBar.tsx
+'use client';
+
+import { useAuth } from '../context/AuthContext';
+
+const { isLoggedIn, user, logout } = useAuth();
+<nav>
+  {isLoggedIn ? (
+    <>
+      <span>Hola, {user.name || user.email}</span>
+      <button onClick={logout}>Tancar Sessió</button>
+    </>
+  ) : (
+    <Link href="/login">Iniciar Sessió</Link>
+  )}
+</nav>
+
 
 export default function Navbar() {
   return (
