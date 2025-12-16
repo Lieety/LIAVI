@@ -2,13 +2,11 @@
 import prisma from '../../../utils/prisma'; 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
-const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
-
   const { email, password } = req.body;
 
   try {
@@ -39,7 +37,5 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
-  } finally {
-    await prisma.$disconnect();
   }
 }

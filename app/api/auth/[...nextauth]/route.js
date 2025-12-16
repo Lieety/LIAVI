@@ -1,11 +1,9 @@
-// /app/api/auth/[...nextauth]/route.js (o .ts)
+// /app/api/auth/[...nextauth]/route.js
 
-
+import prisma from '../../../../utils/prisma'; 
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import prisma from '../../../../utils/prisma';
-import bcrypt from 'bcrypt';
-
+import { compare } from 'bcrypt'; 
 
 export const authOptions = {
     // Configuració de la Sessió
